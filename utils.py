@@ -1,6 +1,6 @@
 import sklearn.mixture
 
-from tim.imports import *
+from . import *
 import plotly.graph_objs as go
 
 font = {'family' : 'Tahoma'}
@@ -25,18 +25,18 @@ def find_nClusters(data, max_clusters=20, cluster_method="kmeans", spectral_affi
     cluster.model = None
     for n_clusters in range(2, max_clusters+1):
         if cluster_method == "kmeans":
-            clusterer = skl.cluster.KMeans(n_clusters=n_clusters, n_init=10, random_state=0)
+            clusterer = sklearn.cluster.KMeans(n_clusters=n_clusters, n_init=10, random_state=0)
         elif cluster_method == "spectral":
-            clusterer = skl.cluster.SpectralClustering(n_clusters=n_clusters, n_init=10, random_state=0,
+            clusterer = sklearn.cluster.SpectralClustering(n_clusters=n_clusters, n_init=10, random_state=0,
                                                        affinity=spectral_affinity)
         elif cluster_method == "bgmm":
-            clusterer = skl.mixture.BayesianGaussianMixture(n_components=n_clusters, covariance_type=cov_type,
+            clusterer = sklearn.mixture.BayesianGaussianMixture(n_components=n_clusters, covariance_type=cov_type,
                                                             random_state=0)
 
         else:
             raise Exception("Cluster method not in list of defined methods ['kmeans', 'spectral', 'bgmm']")
         cluster_labels = clusterer.fit_predict(data)
-        silhouette_avg = skl.metrics.silhouette_score(data, cluster_labels)
+        silhouette_avg = sklearn.metrics.silhouette_score(data, cluster_labels)
         if (silhouette_avg > cluster.score) and (np.unique(cluster_labels,
                                                            return_counts=True)[1]>=min_points_per_cluster).all():
             cluster.score = silhouette_avg

@@ -14,6 +14,5 @@ from types import SimpleNamespace
 
 import pyarrow.parquet as pq
 
-import tim.tim_utils as tim
-
+import utils as tim
 

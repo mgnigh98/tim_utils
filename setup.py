@@ -9,7 +9,7 @@ GITHUB_URL = f"https://github.com/{AUTHOR}/{PROJECT_NAME}"
 DESCRIPTION = "Package for common imports and utility functions"
 REQUIRED_PACKAGES = [line for line in open("requirements.txt").readlines() if 'https://' not in line]
 REQUIRED_LINKS = [line.strip().split()[-1] for line in open("requirements.txt").readlines() if 'https://' in line]
-VERSION = "0.6.14"
+VERSION = "0.1.0"
  
  
 setup(
