@@ -173,5 +173,9 @@ def dir_files_list(directory):
         filenames.append(os.path.join(directory, file))
     return filenames
 
+def lists_init(n):
+    for _ in range(n):
+        yield []
+
 
 
