@@ -2,12 +2,17 @@ import sklearn.mixture
 
 from . import *
 import plotly.graph_objs as go
+from copy import deepcopy
 
-font = {'family' : 'Tahoma'}
-plt.rc('font', **font)
-np.set_printoptions(suppress=True)
+from .kde import KernelDensity
 
 bool = [False, True]
+
+
+def set_plt():
+    font = {'family' : 'Tahoma'}
+    plt.rc('font', **font)
+    np.set_printoptions(suppress=True)
 
 
 def find_nClusters(data, max_clusters=20, cluster_method="kmeans", spectral_affinity="rbf", cov_type="diag",
@@ -173,9 +178,19 @@ def dir_files_list(directory):
         filenames.append(os.path.join(directory, file))
     return filenames
 
-def lists_init(n):
+def gen_(n, template=None):
+    if template is None:
+        template = []
     for _ in range(n):
-        yield []
+        yield deepcopy(template)
+
+class log_print:
+    def __init__(self, log_file, sys_stdout):
+        self.log = log_file
+        self.sys = sys_stdout
+    def write(self, *args, **kwargs):
+        self.log.write(*args, **kwargs)
+        self.sys.write(*args, **kwargs)
 
 
 
