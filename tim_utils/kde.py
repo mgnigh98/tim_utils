@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.utils.validation import _check_sample_weight, check_is_fitted
 from sklearn.utils import check_random_state
 from sklearn.neighbors._ball_tree import BallTree
-from numpy import float32 as DTYPEs
+from numpy import float32 as DTYPE
 from sklearn.neighbors._kd_tree import KDTree
 from sklearn.utils.extmath import row_norms
 
