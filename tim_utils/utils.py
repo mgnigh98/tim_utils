@@ -3,7 +3,7 @@ import sklearn.mixture
 from . import *
 from copy import deepcopy
 
-#from .kde import KernelDensity
+from .kde import KernelDensity
 
 bool = [False, True]
 
