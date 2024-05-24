@@ -1,10 +1,9 @@
 import sklearn.mixture
 
 from . import *
-import plotly.graph_objs as go
 from copy import deepcopy
 
-from .kde import KernelDensity
+#from .kde import KernelDensity
 
 bool = [False, True]
 
@@ -13,6 +12,22 @@ def set_plt():
     font = {'family' : 'Tahoma'}
     plt.rc('font', **font)
     np.set_printoptions(suppress=True)
+
+def torch_device():
+    return (
+    "cuda"
+    if T.cuda.is_available()
+    else "mps"
+    if T.backends.mps.is_available()
+    else "cpu"
+)
+
+def torch_parameter_count(net, only_trainable=True):
+    if only_trainable:
+        params = sum(p.numel() for p in net.parameters() if p.requires_grad )
+    else:
+        params = sum(p.numel() for p in net.parameters() )
+    print(f"The network has {params} trainable parameters")
 
 
 def find_nClusters(data, max_clusters=20, cluster_method="kmeans", spectral_affinity="rbf", cov_type="diag",

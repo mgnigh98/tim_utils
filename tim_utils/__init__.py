@@ -5,6 +5,7 @@ import sklearn
 import torch as T
 import joblib
 import matplotlib.pyplot as plt
+import plotly.graph_objs as go
 
 import os
 import time
@@ -13,6 +14,7 @@ import subprocess
 import warnings
 import sys
 from functools import partial
+import types
 from types import SimpleNamespace
 
 import pyarrow.parquet as pq
