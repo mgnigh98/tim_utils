@@ -188,10 +188,7 @@ class SpecScaler:
 
 
 def dir_files_list(directory):
-    filenames = []
-    for file in os.listdir(directory):
-        filenames.append(os.path.join(directory, file))
-    return filenames
+    return [file for file in os.listdir(directory) if os.path.isfile(os.path.join(directory, file))]
 
 def gen_(n, template=None):
     if template is None:
