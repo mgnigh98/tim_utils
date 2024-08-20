@@ -7,6 +7,8 @@ from .kde import KernelDensity
 
 bool = [False, True]
 
+def clip(clip_text):
+    subprocess.run("clip", input=clip_text, text=True)
 
 def set_plt():
     font = {'family' : 'Tahoma'}
