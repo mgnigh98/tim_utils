@@ -2,8 +2,8 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import warnings
-from tim_utils import *
-from gan import GAN
+from .gan import GAN
+
 
 # Suppress specific warnings
 warnings.filterwarnings("ignore", category=RuntimeWarning, module="numpy.lib._function_base_impl")
