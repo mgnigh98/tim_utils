@@ -21,3 +21,5 @@ import pyarrow.parquet as pq
 
 from . import utils as tim 
 
+# from .scipy import patch_beta_fitstart
+# patch_beta_fitstart()
