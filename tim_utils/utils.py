@@ -5,6 +5,7 @@ from copy import deepcopy
 
 from .kde import KernelDensity
 from .numpy import array
+from .copulas.copulas import Copula
 
 import traceback
 
@@ -234,6 +235,7 @@ class log_print:
     def write(self, *args, **kwargs):
         self.log.write(*args, **kwargs)
         self.sys.write(*args, **kwargs)
+
 
 
 
