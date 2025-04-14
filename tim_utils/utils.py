@@ -4,7 +4,7 @@ from . import *
 from copy import deepcopy
 
 from .kde import KernelDensity
-from .numpy import array
+# from .numpy import array
 from .copulas.copulas import Copula
 from .gan.gan import GAN
 
