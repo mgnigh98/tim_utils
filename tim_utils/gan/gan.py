@@ -160,7 +160,6 @@ class GAN:
         self.features = features
         self.latent_dim = latent_dim
         self.device = device if device is not None else torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        self.scaler_type = scaler_type
         self.mode = mode
         
         # Set hidden dimensions
@@ -187,7 +186,9 @@ class GAN:
             self.criterion = self.wasserstein_loss
         
         # Initialize the scaler
-        if scaler_type == 'standard':
+        if scaler_type is None:
+            self.scaler = None
+        elif scaler_type == 'standard':
             self.scaler = StandardScaler()
         elif scaler_type == 'minmax':
             self.scaler = MinMaxScaler(feature_range=(-1, 1))
@@ -278,7 +279,7 @@ class GAN:
             Training history.
         """
         # Preprocess the data
-        if self.scaler_type is not None:
+        if self.scaler is not None:
             data_tensor = self.preprocess_data(data)
         else:
             data_tensor = torch.FloatTensor(data).to(self.device)
@@ -408,7 +409,7 @@ class GAN:
         synthetic_data = synthetic_data.cpu().numpy()
         
         # Inverse transform the data
-        if self.scaler_type is not None:
+        if self.scaler is not None:
             synthetic_data = self.scaler.inverse_transform(synthetic_data)
         
         # Convert to DataFrame
