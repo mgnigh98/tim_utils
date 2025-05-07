@@ -7,6 +7,7 @@ from torch.utils.data import DataLoader, TensorDataset
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import warnings
+import os
 
 
 # Suppress specific warnings
@@ -282,6 +283,7 @@ class GAN:
         if self.scaler is not None:
             data_tensor = self.preprocess_data(data)
         else:
+            print(self.device)
             data_tensor = torch.FloatTensor(data).to(self.device)
         
         # Create a DataLoader
@@ -377,7 +379,10 @@ class GAN:
             
             # Save the model
             if (epoch + 1) % save_interval == 0:
-                self.save(f"gan_model_epoch_{epoch+1}.pt")
+                # Check if we're running in a distributed setting
+                rank = int(os.environ.get('RANK', '0'))
+                # Only save on rank 0 to avoid conflicts 
+                self.save(f"syn_data/models/gan_model_epoch_{epoch+1}_{rank}.pt")
         
         return self.history
     
@@ -445,7 +450,9 @@ class GAN:
         filename : str
             Filename to load the model from.
         """
-        checkpoint = torch.load(filename, map_location=self.device)
+        checkpoint = torch.load(filename, 
+                                map_location=lambda storage, loc: storage.cuda(self.device.index),  
+                                weights_only=False)
         
         self.generator.load_state_dict(checkpoint['generator_state_dict'])
         self.discriminator.load_state_dict(checkpoint['discriminator_state_dict'])
