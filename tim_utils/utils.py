@@ -7,6 +7,7 @@ from .kde import KernelDensity
 # from .numpy import array
 from .copulas.copulas import Copula
 from .gan.gan import GAN
+from .syn_data import alpha_beta_prec_recall
 
 import traceback
 

@@ -527,13 +527,13 @@ def compute_metrics(X, Y, embed_synthetic=False, steps =30, verbosity=False):
 
     else:
         synthetic_embedding = None
-
-    if embed_synthetic:
+    if embed_synthetic == "skip":
+        alphas_, beta_recall_curve = None, None
+    elif embed_synthetic:
 
         alphas_, beta_recall_curve = compute_beta_recall_OC(X, Y, real_embedding, synthetic_embedding, n_steps=steps)
 
     else:
-
         alphas_, beta_recall_curve = compute_beta_recall_kNN(X, Y, real_embedding, synthetic_embedding,n_steps=steps)
     alphas_a_, alpha_precision_curve, beta_coverage_curve, Delta_precision_alpha, Delta_coverage_beta, authen = compute_alpha_precision(X,Y,real_embedding,n_steps=steps)
     #print(beta_coverage_curve == beta_recall_curve)

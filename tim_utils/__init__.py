@@ -20,7 +20,7 @@ from types import SimpleNamespace
 import pyarrow.parquet as pq
 
 from . import utils as tim 
-from .syn_data import alpha_beta_prec_recall
+
 
 # from .scipy import patch_beta_fitstart
 # patch_beta_fitstart()
